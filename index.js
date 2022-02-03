@@ -8,7 +8,7 @@ const UserModel = require("./models/user");
 const bcrypt = require('bcryptjs');
 
 
-
+//Middleware
 app.use(cors());
 app.use(express.json());
 require('dotenv').config();
@@ -27,7 +27,7 @@ const store = new connectMongodbSession({
     collection: 'user'
 })
 
-//Middleware
+
 app.use(session({
     secret: 'will put cookie here soon',
     resave: false,
@@ -47,6 +47,9 @@ const confirmAuth = (req, res, next) => {
 
 
 
+
+
+/*Routes*/
 app.get('/', confirmAuth , (req, res) => {
     res.render("index");
 })
@@ -59,6 +62,11 @@ app.get('/signup', (req, res) => {
 app.get('/signin', (req, res) => {
     res.render("login");
 })
+
+
+
+
+
 
 app.post("/register", async (req, res) => {
     const { email, password } = req.body;
@@ -76,6 +84,10 @@ app.post("/register", async (req, res) => {
         .then(() => res.redirect('/'))
         .catch(err => res.status(500).json({ error: err }))
 })
+
+
+
+
 
 
 app.post("/login", async (req, res) => {
@@ -102,6 +114,11 @@ app.post("/login", async (req, res) => {
     });
 
 })
+
+
+
+
+
 
 app.post("/logout", (req, res) => {
     req.session.destroy((err) => {
