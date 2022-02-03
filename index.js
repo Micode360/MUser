@@ -49,7 +49,7 @@ const confirmAuth = (req, res, next) => {
 
 
 
-/*Routes*/
+/*Get Routes*/
 app.get('/', confirmAuth , (req, res) => {
     res.render("index");
 })
@@ -67,7 +67,7 @@ app.get('/signin', (req, res) => {
 
 
 
-
+/*Post Routes*/
 app.post("/register", async (req, res) => {
     const { email, password } = req.body;
 
@@ -84,9 +84,6 @@ app.post("/register", async (req, res) => {
         .then(() => res.redirect('/'))
         .catch(err => res.status(500).json({ error: err }))
 })
-
-
-
 
 
 
@@ -114,9 +111,6 @@ app.post("/login", async (req, res) => {
     });
 
 })
-
-
-
 
 
 
