@@ -1,0 +1,18 @@
+{
+  "name": "Training",
+  "version": "1.0.0",
+  "description": "I am relearning authentication.",
+  "main": "index.js",
+  "author": "Abaye Miracle King",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "connect-mongodb-session": "^3.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.2",
+    "express-session": "^1.17.2",
+    "mongoose": "^6.2.0"
+  }
+}
