@@ -1,5 +1,5 @@
 {
-  "name": "Training",
+  "name": "mauth",
   "version": "1.0.0",
   "description": "I am relearning authentication.",
   "main": "index.js",

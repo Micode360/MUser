@@ -1,3 +1,174 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
 body {
-    background-color: red;
+    font-family: Quicksand;
+}
+
+
+a {
+    text-decoration: none;
+}
+
+input {
+    outline: none;
+}
+
+button {
+    outline: none;
+}
+
+
+
+
+.aut_frame, .aut_frame_reg {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: grid;
+    grid-template-columns:1fr 1fr;
+}
+
+.col_1 {
+    background-image: url(./img/signInAuth.gif);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+.col_1_reg {
+    background-image: url(./img/signUpAuth.gif) !important;
+}
+
+.col_2 {
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
+    position: relative;
+}
+
+.col_2::before{
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -100px;
+    bottom: -100px;
+    -moz-transform: skew(-6deg, -8deg);
+    -webkit-transform: skew(-6deg, -8deg);
+     -o-transform: skew(-6deg, -8deg);
+    -ms-transform: skew(-6deg, -8deg);
+    transform: skew(-6deg, -8deg);
+    background-color: #0e1144;
+}
+
+.col_2 .form {
+    border-radius:6px;
+    padding:0.8rem;
+    z-index: 2;
+    width: 50%;
+    display:flex;
+    flex-direction: column;
+}
+
+.logo_label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.logo_label img {
+    width: 4rem;
+ 
+}
+
+.logo_label p {
+    color: #eee;
+}
+
+
+.col_2 .form div {
+    margin-bottom: 1rem;
+        width: 100%;
+        display:flex;
+        flex-direction: column;
+}
+
+.col_2 .form div label {
+    color: #eee;
+    margin-bottom: 0.5rem;
+}
+
+.col_2 .form input {
+    padding: 0.5rem;
+    font-family: Quicksand;
+    font-size:16px;
+    font-weight: 700;
+    border: 2px solid rgba(46, 209, 25, 0);
+    border-radius: 2px;
+}
+
+.col_2 .form input:focus {
+    border:2px solid rgb(10, 148, 158);
+}
+
+
+.col_2 .form button {
+    background-color: #0c6b44;
+    padding:0.5rem 1rem;
+    font-family: Quicksand;
+    font-weight: 400;
+    font-size: 16px;
+    color: #eee;
+    border: none;
+    border-radius:2px;
+    margin-bottom:0.5rem;
+}
+
+.col_2 .form button:hover {
+    background-color: #0a5838;
+    cursor: pointer;
+}
+
+.col_2 .form a {
+    color: #eee;
+    text-decoration: underline;
+}
+
+.col_2 .form a:hover{
+    color: rgb(225, 231, 231);
+}
+
+
+@media (max-width:1133px) {
+    .col_2 .form {
+        width: 60%;
+    }
+}
+
+@media (max-width:867px) {
+
+    .aut_frame {
+        grid-template-columns:1fr 2fr;
+    }
+
+}
+
+@media (max-width:800px) {
+
+    .aut_frame, .aut_frame_reg {
+        grid-template-columns:1fr;
+        padding:1rem;
+    }
+
+    .col_1 {
+        display: none;
+    }
+
+    .col_2 .form {
+        width: 60%;
+    }
 }
