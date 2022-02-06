@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 
+*{
+    margin: 0;
+    padding: 0;
+}
 body {
     font-family: Quicksand;
 }
@@ -11,10 +15,12 @@ a {
 
 input {
     outline: none;
+    font-family: Quicksand;
 }
 
 button {
     outline: none;
+    font-family: Quicksand;
 }
 
 
@@ -48,7 +54,39 @@ button {
     align-items:center;
     justify-content: center;
     position: relative;
+    -webkit-animation-name: fadeInLeftBig;
+    animation-name: fadeInLeftBig;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
 }
+
+
+@-webkit-keyframes fadeInLeftBig {
+    0% {
+    opacity: 0;
+    -webkit-transform: translate3d(-2000px, 0, 0);
+    transform: translate3d(-2000px, 0, 0);
+    }
+    100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+    }
+    }
+    @keyframes fadeInLeftBig {
+    0% {
+    opacity: 0;
+    -webkit-transform: translate3d(-2000px, 0, 0);
+    transform: translate3d(-2000px, 0, 0);
+    }
+    100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+    }
+    }
 
 .col_2::before{
     content: "";
@@ -62,7 +100,8 @@ button {
      -o-transform: skew(-6deg, -8deg);
     -ms-transform: skew(-6deg, -8deg);
     transform: skew(-6deg, -8deg);
-    background-color: #0e1144;
+    background-color: #0c0e33;
+    border-radius:2rem;
 }
 
 .col_2 .form {
@@ -106,7 +145,7 @@ button {
     padding: 0.5rem;
     font-family: Quicksand;
     font-size:16px;
-    font-weight: 700;
+    font-weight: 500;
     border: 2px solid rgba(46, 209, 25, 0);
     border-radius: 2px;
 }
@@ -131,6 +170,9 @@ button {
 .col_2 .form button:hover {
     background-color: #0a5838;
     cursor: pointer;
+    transform: scale(1.05);
+    transition: 0.1s;
+    cursor: pointer;
 }
 
 .col_2 .form a {
@@ -143,19 +185,245 @@ button {
 }
 
 
+/*Header, footer*/
+
+.header, .footer {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    padding:1.5rem;
+    background-color: #0c0e33;
+    color: #fff;
+}
+
+.header button{
+    background-color: #0c6b44;
+    padding:0.5rem 1rem;
+    font-family: Quicksand;
+    font-weight: 400;
+    font-size: 16px;
+    color: #eee;
+    border: none;
+    border-radius:2px;
+    margin-bottom:0.5rem;
+    cursor: pointer;
+}
+
+.header button:hover {
+    background-color: #0a5838;
+    cursor: pointer;
+    transform: scale(1.05);
+    transition: 0.1s;
+    cursor: pointer;
+}
+
+main {
+    height: 100vh;
+    width: 100%;
+}
+
+/*Showcase*/
+
+.showcase {
+    background-image: url(./img/showcase.gif);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 90%;
+}
+
+.showcase .tin_can {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.showcase .tin_can h1 {
+    font-size:4rem;
+}
+
+.showcase .tin_can p {
+    font-size:1.2rem;
+    text-align: center;
+}
+
+.users, .l_form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.users span {
+    margin-right: 1rem;
+    cursor: pointer;
+}
+
+.users span:hover {
+    color: rgb(228, 225, 225);
+} 
+
+.l_form button {
+    margin-bottom:0;
+}
+
+
+.users_nav {
+    position:fixed;
+    right:-40rem;
+    top: 1rem;
+    bottom: 1rem;
+    width: 20rem;
+    background-color: #ffffff;
+    padding:1rem;
+    border-radius: 12px;
+    padding-top: 2rem;
+    overflow-y: auto !important;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.089), 0 6px 20px 0 rgba(0, 0, 0, 0.089);
+    transition: right 0.5s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+
+.users_nav_show {
+    right:1rem;
+}
+
+.user_close {
+    background: #181b5c;
+    color: #eee;
+    position:absolute;
+    top:0;
+    left:-2px;
+    padding:0.2rem 0.4rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.users_nav::-webkit-scrollbar, .ku-admin-pop-n-news::-webkit-scrollbar {
+    background: #ffffff;
+    width: 0.6rem;
+    padding: 2px;
+    z-index: 2;
+  }
+  
+  .users_nav::-webkit-scrollbar-thumb, .ku-admin-pop-n-news::-webkit-scrollbar-thumb {
+    background: #181b5c;
+    height: 100px;
+    border-radius: 10px;
+  }
+  
+  .users_nav::-webkit-scrollbar-thumb:hover, .ku-admin-pop-n-news::-webkit-scrollbar-thumb:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.315);
+  }
+  
+
+
+._user{
+    background-color: #0c0e33;
+    border-radius: 4px;
+    color: #eee;
+    padding:0.5rem 1rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.089), 0 6px 20px 0 rgba(0, 0, 0, 0.089);
+    margin-bottom: 1rem;
+}
+
+.search_user {
+    margin-bottom:1rem;
+    display: flex;
+    flex-direction:column;
+}
+
+.search_user input {
+    padding:0.5rem;
+    font-size:1rem;
+}
+
+.search_user input:focus {
+    border:2px solid #0c0e33;
+    border-radius:4px;
+}
+
+
+/*About*/
+.container {
+    margin:auto;
+    padding:4rem;
+    background-color: rgb(248, 244, 244);
+}
+
+.about{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+
+
+._col1, ._col2 {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;  
+    padding: 5%;  
+}
+
+._col2 {
+    align-items: center;
+}
+
+._col1 h3 {
+   font-size: 2.5rem;
+   margin-bottom:1rem;
+}
+
+._col2 img{
+    width:100%;
+}
+
+/*Media Queries*/
+
+
+
 @media (max-width:1133px) {
     .col_2 .form {
         width: 60%;
     }
 }
 
-@media (max-width:867px) {
+@media (max-width:1026px) {
 
+    ._col1 h3 {
+        font-size: 2rem;
+     }
+
+     ._col1 p {
+        font-size: 1rem;
+     }
+     
+     .container {
+        padding:4rem 2%;
+    }
+     
+}
+
+
+@media (max-width:996px) {
+    .col_2 .form {
+        width: 60%;
+    }
+}
+
+@media (max-width:867px) {
     .aut_frame {
         grid-template-columns:1fr 2fr;
     }
 
 }
+
+
 
 @media (max-width:800px) {
 
@@ -170,5 +438,21 @@ button {
 
     .col_2 .form {
         width: 60%;
+    }
+
+    .showcase .tin_can h1 {
+        font-size:3rem;
+    }
+    
+    .showcase .tin_can p {
+        font-size:1.2rem;
+    }
+}
+
+
+@media  (max-width:789px) {
+    .about {
+        display:flex;
+        flex-direction:column;
     }
 }

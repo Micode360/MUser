@@ -3,9 +3,10 @@ const app = express();
 const cors = require('cors');
 const session = require("express-session");
 const mongoose = require("mongoose");
-const connectMongodbSession = require("connect-mongodb-session")(session);
 const UserModel = require("./models/user");
 const bcrypt = require('bcryptjs');
+const { body, validationResult } = require('express-validator');
+const connectMongodbSession = require("connect-mongodb-session")(session);
 
 
 //Middleware
@@ -56,7 +57,7 @@ app.get('/', confirmAuth , (req, res) => {
 
 
 app.get('/signup', (req, res) => {
-    res.render("register");
+    res.render("signup", {error: ''});
 })
 
 app.get('/signin', (req, res) => {
@@ -68,21 +69,33 @@ app.get('/signin', (req, res) => {
 
 
 /*Post Routes*/
-app.post("/register", async (req, res) => {
+app.post("/signup",
+     // username must be an email
+  body('email').isEmail(),
+  // password must be at least 5 chars long
+  body('password').isLength({ min: 5 })
+,async (req, res) => {
     const { email, password } = req.body;
 
+    /*Validation Check*/
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        console.log(errors.array(), "errors");
+        const error = { errors: errors.array() };
+        return res.render('signup', { error });
+    }
 
-    const userModel = new UserModel({
-        email,
-        password
-    });
+    // const userModel = new UserModel({
+    //     email,
+    //     password
+    // });
 
-    const crypted = await bcrypt.hash(userModel.password, 15);
-    userModel.password = crypted;
+    // const crypted = await bcrypt.hash(userModel.password, 15);
+    // userModel.password = crypted;
 
-    userModel.save()
-        .then(() => res.redirect('/'))
-        .catch(err => res.status(500).json({ error: err }))
+    // userModel.save()
+    //     .then(() => res.redirect('/'))
+    //     .catch(err => res.status(500).json({ error: err }))
 })
 
 
@@ -106,7 +119,6 @@ app.post("/login", async (req, res) => {
             req.session.setAuth = true;
             res.redirect('/');
         }
-
             
     });
 

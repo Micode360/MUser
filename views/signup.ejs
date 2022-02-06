@@ -12,22 +12,31 @@
 
 <body>
     <div class="aut_frame_reg">
+        <% console.log("error")%>
         <div class="col_2">
-            <form action="/register" class="form" method="post">
+            <form action="/signup" class="form" method="post">
                 <div class="logo_label">
-                    <img src="/img/logo_2.png" width="100px" alt="logo_2">
+                    <img src="/img/logo_2.svg" width="100px" alt="logo_2">
                     <p>Register with us. Be a user</p>
                 </div>
                 <div>
                     <label for="Email">Email</label>
                     <input type="text" name="email" placeholder="email" />
+                    <% if (error !='undefined' ) { %>
+                        <% if (error.param === 'email' ) { %>
+                            <small>
+                                <%= 'Invalid Email' %>
+                            </small>
+                            <% } %>
+                        <% } %>
                 </div>
 
                 <div>
                     <label for="Password">Password</label>
                     <input type="password" name="password" placeholder="password" />
+                    <!-- <small><%='Password Error' %></small> -->
                 </div>
-                <button>Send</button>
+                <button>Sign Up</button>
 
                 <a href="/signin">Sign In</a>
             </form>
