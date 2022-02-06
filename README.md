@@ -1,4 +1,4 @@
-# MAuth
+# MUser
 
 ![Logo](./public/img/logo_2.svg)
 
