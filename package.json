@@ -1,8 +1,11 @@
 {
   "name": "mauth",
   "version": "1.0.0",
-  "description": "I am relearning authentication.",
+  "description": "M.User is an website that stores user data.",
   "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
   "author": "Abaye Miracle King",
   "license": "MIT",
   "dependencies": {
