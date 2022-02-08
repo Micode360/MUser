@@ -31,7 +31,7 @@ const store = new connectMongodbSession({
 
 
 app.use(session({
-    secret: 'will put cookie here soon',
+    secret: 'secret',
     resave: false,
     saveUninitialized: false,
     store: store
