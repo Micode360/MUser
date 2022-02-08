@@ -13,9 +13,9 @@
 <body>
     <main>
         <header class="header">
-                <div class="logo_label">
-                    <img src="/img/logo_2.svg" width="100px" alt="logo_2">
-                </div>
+            <div class="logo_label">
+                <img src="/img/logo_2.svg" width="100px" alt="logo_2">
+            </div>
             <nav class="users">
                 <span id="user_option">Users</span>
                 <form class="l_form" action="/logout" method="POST">
@@ -27,7 +27,8 @@
 
         <section class="showcase">
             <div class="tin_can">
-                <h1>Hi <%= 'Miracle King'%></h1>
+                <h1>Hi <%= name %>
+                </h1>
                 <p>Welcome to M.User. A beautiful place to be.</p>
             </div>
         </section>
@@ -38,10 +39,14 @@
                 <div class="_col1">
                     <h3>The Purpose of this project</h3>
                     <p>
-                        The main purpose of this site is to collect the data of users and store it in the database through authorization and authentication means. Users are entitled to
-                        how they handle their data and they can choose if they want to leave it here or delete it. If a user doesn't want to leave their
-                        information here but want to see the website, they are allowed to put dummy data ino this site. And very important, if the user wants to
-                        opt out or delete his or her information, he or she can go ahead becuase users are responsible for their own data and
+                        The main purpose of this site is to collect the data of users and store it in the database
+                        through authorization and authentication means. Users are entitled to
+                        how they handle their data and they can choose if they want to leave it here or delete it. If a
+                        user doesn't want to leave their
+                        information here but want to see the website, they are allowed to put dummy data ino this site.
+                        And very important, if the user wants to
+                        opt out or delete his or her information, he or she can go ahead becuase users are responsible
+                        for their own data and
                         how or what they want to do with it.
                     </p>
                 </div>
@@ -55,19 +60,21 @@
         <section class="users_nav">
             <div class="user_close">X</div>
             <div class="search_user">
-                <input type="text" placeholder="search user"/>
+                <input type="text" placeholder="search user" />
             </div>
 
             <div class="map_user">
 
-                <div  class="_user">
-                    <h4>Elia Jones</h4>
-                    <p>Hi i am elie Jones</p>
-                    <small>Logged In 4 Hours ago.</small>
-                </div>
+                <%for(var user of users) {%>
+                    <div class="_user">
+                        <h4><%=user.name %></h4>
+                        <p><%=user.email%></p>
+                        <small>Registered <%=user.createdAt%>.</small>
+                    </div>
+                <%}%>
 
             </div>
-            
+
         </section>
 
         <footer class="footer">

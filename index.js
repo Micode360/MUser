@@ -5,6 +5,8 @@ const session = require("express-session");
 const mongoose = require("mongoose");
 const UserModel = require("./models/user");
 const bcrypt = require('bcryptjs');
+const moment = require('moment');
+const { body, validationResult } = require('express-validator');
 const connectMongodbSession = require("connect-mongodb-session")(session);
 
 
@@ -13,7 +15,7 @@ app.use(cors());
 app.use(express.json());
 require('dotenv').config();
 app.set('view engine', 'ejs');
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 
 mongoose.connect(process.env.MONGO_URI, {
@@ -32,7 +34,7 @@ app.use(session({
     secret: 'will put cookie here soon',
     resave: false,
     saveUninitialized: false,
-    store: store 
+    store: store
 }))
 
 
@@ -41,7 +43,7 @@ app.use(express.static(__dirname + '/views'));
 
 
 const confirmAuth = (req, res, next) => {
-    if(req.session.setAuth) next();
+    if (req.session.setAuth)next();
     else res.redirect('/signin');
 }
 
@@ -50,43 +52,57 @@ const confirmAuth = (req, res, next) => {
 
 
 /*Get Routes*/
-app.get('/', confirmAuth , (req, res) => {
-    res.render("index");
+app.get('/', confirmAuth, (req, res) => {
+    UserModel.find()
+    .then((data) => {
+
+       const mappedData = data.map(user => {
+            const dataFormat = {
+                name: user.name,
+                email: user.email,
+                createdAt:  moment(user.createdAt).fromNow()
+            }
+            return dataFormat;
+        })
+
+        res.render("index", {name: 'User', users: mappedData});
+    });
+    
 })
 
 
 app.get('/signup', (req, res) => {
-    res.render("signup", {error: ''});
+    res.render("signup", { error: '' });
 })
 
 app.get('/signin', (req, res) => {
-    res.render("login");
+    res.render("signin");
 })
-
-
 
 
 
 /*Post Routes*/
-app.post("/signup",async (req, res) => {
-    const { email, password } = req.body;
+app.post("/signup",
+    async (req, res) => {
+        const { name, email, password } = req.body;
 
-    const userModel = new UserModel({
-        email,
-        password
-    });
+        const userModel = new UserModel({
+            name,
+            email,
+            password
+        });
 
-    const crypted = await bcrypt.hash(userModel.password, 15);
-    userModel.password = crypted;
+        const crypted = await bcrypt.hash(userModel.password, 15);
+        userModel.password = crypted;
 
-    userModel.save()
-        .then(() => res.redirect('/'))
-        .catch(err => res.status(500).json({ error: err }))
-})
+        userModel.save()
+            .then(() => res.redirect('/signin'))
+            .catch(err => res.status(500).json({ error: err }))
+    })
 
 
 
-app.post("/login", async (req, res) => {
+app.post("/signin", async (req, res) => {
     const { email, password } = req.body;
 
 
@@ -101,20 +117,20 @@ app.post("/login", async (req, res) => {
 
         if (passwordCompare === false) {
             res.status(401).json({ errormessage: "Incorrect Password" });
-        } else{
+        } else {
             req.session.setAuth = true;
-            res.redirect('/');
+            user.lastLogin = new Date();
+            res.redirect('/')
         }
-            
+
     });
 
 })
 
 
-
 app.post("/logout", (req, res) => {
     req.session.destroy((err) => {
-        if(err) throw err;
+        if (err) throw err;
         res.redirect("/");
     })
 })
