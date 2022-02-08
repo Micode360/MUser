@@ -185,6 +185,10 @@ button {
 }
 
 
+small {
+    color: rgb(179, 190, 11);
+}
+
 /*Header, footer*/
 
 .header, .footer {

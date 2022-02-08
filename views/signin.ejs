@@ -23,11 +23,29 @@
                 <div>
                     <label for="Email">Email</label>
                     <input type="text" name="email" placeholder="email" />
+                    <% if (errors !='undefined' ) { %>
+                        <% errors.forEach(function(error) { %>
+                            <% if (error.param === 'email' ) { %>
+                                <small>
+                                    <%= 'Invalid Email' %>
+                                </small>
+                                <% } %>
+                            <%})%>
+                        <% } %>
                 </div>
 
                 <div>
                     <label for="Password">Password</label>
                     <input type="password" name="password" placeholder="password" />
+                    <% if (errors !='undefined' ) { %>
+                        <% errors.forEach(function(error) { %>
+                            <% if (error.param === 'password' ) { %>
+                                <small>
+                                    <%= 'Invalid Password' %>
+                                </small>
+                                <% } %>
+                            <%})%>
+                        <% } %>
                 </div>
                 <button>Sign In</button>
 

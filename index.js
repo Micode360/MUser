@@ -43,7 +43,7 @@ app.use(express.static(__dirname + '/views'));
 
 
 const confirmAuth = (req, res, next) => {
-    if (req.session.setAuth)next();
+    if (req.session.setAuth) next();
     else res.redirect('/signin');
 }
 
@@ -54,37 +54,47 @@ const confirmAuth = (req, res, next) => {
 /*Get Routes*/
 app.get('/', confirmAuth, (req, res) => {
     UserModel.find()
-    .then((data) => {
+        .then((data) => {
 
-       const mappedData = data.map(user => {
-            const dataFormat = {
-                name: user.name,
-                email: user.email,
-                createdAt:  moment(user.createdAt).fromNow()
-            }
-            return dataFormat;
-        })
+            const mappedData = data.map(user => {
+                const dataFormat = {
+                    name: user.name,
+                    email: user.email,
+                    createdAt: moment(user.createdAt).fromNow()
+                }
+                return dataFormat;
+            })
 
-        res.render("index", {name: 'User', users: mappedData});
-    });
-    
+            res.render("index", { name: 'User', users: mappedData });
+        });
+
 })
 
 
 app.get('/signup', (req, res) => {
-    res.render("signup", { error: '' });
+    res.render("signup", { errors: [] });
 })
 
 app.get('/signin', (req, res) => {
-    res.render("signin");
+    res.render("signin", { errors: [] });
 })
 
 
 
 /*Post Routes*/
 app.post("/signup",
+    body('name').not().isEmpty(),
+    body('email').isEmail(),
+    body('password').isLength({ min: 5 }),
     async (req, res) => {
         const { name, email, password } = req.body;
+
+        /*Validation Check*/
+        const errorsFromVal = validationResult(req);
+        if (!errorsFromVal.isEmpty()) {
+            const errors = errorsFromVal.array();
+            return res.render('signup', { errors });
+        }
 
         const userModel = new UserModel({
             name,
@@ -102,30 +112,39 @@ app.post("/signup",
 
 
 
-app.post("/signin", async (req, res) => {
-    const { email, password } = req.body;
+app.post("/signin",
+    body('email').isEmail(),
+    body('password').isLength({ min: 5 }),
+    async (req, res) => {
+        const { email, password } = req.body;
 
-
-    UserModel.findOne({ email: email }, async (err, user) => {
-
-        if (err) return err;
-        if (!user) {
-            res.status(401).json({ errormessage: "Incorrect Email" });
+        /*Validation Check*/
+        const errorsFromVal = validationResult(req);
+        if (!errorsFromVal.isEmpty()) {
+            const errors = errorsFromVal.array();
+            return res.render('signin', { errors });
         }
 
-        const passwordCompare = await bcrypt.compare(password, user.password);
+        UserModel.findOne({ email: email }, async (err, user) => {
 
-        if (passwordCompare === false) {
-            res.status(401).json({ errormessage: "Incorrect Password" });
-        } else {
-            req.session.setAuth = true;
-            user.lastLogin = new Date();
-            res.redirect('/')
-        }
+            if (err) return err;
+            if (!user) {
+                res.status(401).json({ errormessage: "Incorrect Email" });
+            }
 
-    });
+            const passwordCompare = await bcrypt.compare(password, user.password);
 
-})
+            if (passwordCompare === false) {
+                res.status(401).json({ errormessage: "Incorrect Password" });
+            } else {
+                req.session.setAuth = true;
+                user.lastLogin = new Date();
+                res.redirect('/')
+            }
+
+        });
+
+    })
 
 
 app.post("/logout", (req, res) => {

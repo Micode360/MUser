@@ -22,24 +22,44 @@
                 <div>
                     <label for="Name">Name</label>
                     <input type="text" name="name" placeholder="Name" />
-                    <!-- <small><%='Password Error' %></small> -->
+                    <% if (errors !='undefined' ) { %>
+                        <% errors.forEach(function(error) { %>
+                            <% if (error.param === 'name' ) { %>
+                                <small>
+                                    <%= 'Invalid name' %>
+                                </small>
+                                <% } %>
+                            <%})%>
+                        <% } %>
                 </div>
                 <div>
                     <label for="Email">Email</label>
                     <input type="text" name="email" placeholder="email" />
-                    <% if (error !='undefined' ) { %>
+
+                    <% if (errors !='undefined' ) { %>
+                    <% errors.forEach(function(error) { %>
                         <% if (error.param === 'email' ) { %>
                             <small>
                                 <%= 'Invalid Email' %>
                             </small>
                             <% } %>
-                        <% } %>
+                        <%})%>
+                    <% } %>
+
                 </div>
 
                 <div>
                     <label for="Password">Password</label>
                     <input type="password" name="password" placeholder="password" />
-                    <!-- <small><%='Password Error' %></small> -->
+                    <% if (errors !='undefined' ) { %>
+                        <% errors.forEach(function(error) { %>
+                            <% if (error.param === 'password' ) { %>
+                                <small>
+                                    <%= 'Invalid Password' %>
+                                </small>
+                                <% } %>
+                            <%})%>
+                        <% } %>
                 </div>
                 <button>Sign Up</button>
 
